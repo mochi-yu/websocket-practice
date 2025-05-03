@@ -2,6 +2,7 @@ package repository
 
 import (
 	"context"
+	"time"
 
 	"github.com/mochi-yu/websocket-practice/ent"
 	"github.com/mochi-yu/websocket-practice/ent/message"
@@ -23,7 +24,7 @@ func NewMessageRepository(db *ent.Client) IMessageRepository {
 func (mr *MessageRepository) Create(ctx context.Context, message *ent.Message) (*ent.Message, error) {
 	msg, err := mr.db.Message.Create().
 		SetContent(message.Content).
-		SetCreatedAt(message.CreatedAt).
+		SetCreatedAt(time.Now()).
 		SetAuthorName(message.AuthorName).
 		Save(ctx)
 	if err != nil {

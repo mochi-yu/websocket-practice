@@ -19,10 +19,6 @@ func main() {
 	}
 	defer db.Close()
 
-	// For debug
-	log.Printf("config: %+v", cfg)
-
-	// http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-	// 	fmt.Fprintf(w, "Hello, World!")
-	// })
+	router := infrastructure.NewRouter(db)
+	router.Run(":8080")
 }
