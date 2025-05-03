@@ -19,6 +19,6 @@ func main() {
 	}
 	defer db.Close()
 
-	router := infrastructure.NewRouter(db)
+	router := infrastructure.NewRouter(db, cfg)
 	router.Run(":8080")
 }

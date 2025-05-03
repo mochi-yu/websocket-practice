@@ -2,6 +2,7 @@ package infrastructure
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/mochi-yu/websocket-practice/config"
 	"github.com/mochi-yu/websocket-practice/controller"
 	"github.com/mochi-yu/websocket-practice/ent"
 	"github.com/mochi-yu/websocket-practice/middleware"
@@ -9,10 +10,11 @@ import (
 	"github.com/mochi-yu/websocket-practice/usecase"
 )
 
-func NewRouter(db *ent.Client) *gin.Engine {
+func NewRouter(db *ent.Client, cfg *config.Config) *gin.Engine {
 	router := gin.Default()
 
-	router.Use(middleware.Cors())
+	router.Use(middleware.Cors(cfg))
+	router.Use(middleware.Options())
 	router.Use(middleware.Transaction(db))
 
 	mr := repository.NewMessageRepository(db)
