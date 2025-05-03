@@ -4,6 +4,7 @@ import (
 	"log"
 
 	"github.com/mochi-yu/websocket-practice/config"
+	"github.com/mochi-yu/websocket-practice/infrastructure"
 )
 
 func main() {
@@ -11,6 +12,12 @@ func main() {
 	if err != nil {
 		log.Fatalf("Failed to read config: %v", err)
 	}
+
+	db, err := infrastructure.NewDB(cfg)
+	if err != nil {
+		log.Fatalf("Failed to connect to database: %v", err)
+	}
+	defer db.Close()
 
 	// For debug
 	log.Printf("config: %+v", cfg)
